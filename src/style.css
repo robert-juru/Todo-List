@@ -1,0 +1,179 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  height: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+#content {
+  font-family: "Montserrat", sans-serif;
+  display: grid;
+  grid-template-rows: 50px 1fr;
+  grid-template-columns: 1fr;
+  height: 100%;
+}
+
+header {
+  background-color: #db4c3f;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+}
+
+.header-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.header-button:hover {
+  background-color: #af3d32;
+}
+
+.header-button img {
+  width: 20px;
+  height: 20px;
+  display: block;
+  margin: auto;
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header__title {
+  font-family: "Lobster", cursive;
+  font-weight: 400;
+  color: white;
+}
+
+.header__logo {
+  height: 35px;
+  padding-right: 16px;
+}
+
+.left-header,
+.right-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.hidden {
+  display: none;
+  background-color: #f7f7f7;
+  padding-left: 20px;
+}
+
+.show-aside {
+  display: flex;
+  padding: 10px 0px 0px 20px;
+  
+}
+
+.main-content {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  grid-template-rows: 1fr;
+}
+
+.tasks-header,
+.projects-header {
+  font-weight: bold;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+nav {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.task-buttons-container,
+.projects-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-bottom: 10px;
+}
+
+.task-button,
+.action-button,
+#create-project-btn,
+.project {
+  border: none;
+  background: none;
+  font: inherit;
+  cursor: pointer;
+  display: flex;
+  flex:1;
+  align-items: center;
+  width: 85%;
+  padding: 8px;
+  /* margin-left: 20px; */
+  /* text-align: left; */
+  gap: 10px;
+  border-radius: 8px;
+}
+
+.task-button:hover,
+.action-button:hover,
+#create-project-btn:hover,
+.project:hover {
+  background-color: #ffffff;
+}
+
+.button-selected {
+  background-color: #e5e7eb;
+  font-weight: bold;
+}
+
+.task-button.button-selected:hover {
+  background-color: #e5e7eb;
+}
+
+ion-icon {
+  font-size: 24px;
+}
+
+.tasks-icon {
+  color: #db4c3f;
+}
+
+.today-icon {
+  color: #74da9a;
+}
+
+.important-icon {
+  color: #fec60e;
+}
+
+.all-tasks-container,
+.today-tasks-container,
+.important-tasks-container,
+.settings,
+.sign-in {
+  display: flex;
+  align-items: center;
+}
+
+.action-buttons-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+  margin-left: -15px;
+}
