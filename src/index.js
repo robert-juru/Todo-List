@@ -6,7 +6,6 @@ const nav = document.querySelector('aside');
 menuButton.addEventListener('click', () => {
     nav.classList.toggle('show-aside');
 });
-
 let navButtons = document.querySelectorAll('.nav-btn');
 let lastSelectedButton = null;
 
