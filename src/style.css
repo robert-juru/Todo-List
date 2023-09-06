@@ -56,13 +56,13 @@ header {
 	justify-content: center;
 }
 
-.header__title {
+.header-title {
 	font-family: "Lobster", cursive;
 	font-weight: 400;
 	color: white;
 }
 
-.header__logo {
+.header-logo {
 	height: 35px;
 	padding-right: 16px;
 }
@@ -87,6 +87,7 @@ header {
 	display: flex;
 	padding: 10px 0px 0px 20px;
 	min-width: 200px;
+	max-width: 300px;
 }
 
 .main-content {
@@ -120,7 +121,8 @@ nav {
 .task-button,
 .action-button,
 #create-project-btn,
-.project {
+.project,
+.new-project-container {
 	border: none;
 	background: none;
 	font: inherit;
@@ -137,7 +139,8 @@ nav {
 .task-button:hover,
 .action-button:hover,
 #create-project-btn:hover,
-.project:hover {
+.project:hover,
+.new-project-container:hover {
 	background-color: #ffffff;
 }
 
@@ -215,7 +218,11 @@ ion-icon {
 label,
 input,
 select {
-	margin-bottom: 5px;
+	margin-bottom: 4px;
+}
+
+input {
+	padding: 5px 10px;
 }
 
 .new-task-header {
@@ -239,7 +246,11 @@ textarea {
 	font-size: 24px;
 }
 
-.create-task-submit-btn {
+/* Buttons */
+
+.create-task-submit-btn,
+.add-new-project-btn,
+.cancel-new-project-btn {
 	background-color: #2ea44f;
 	border: 1px solid rgba(27, 31, 35, 0.15);
 	border-radius: 6px;
@@ -252,16 +263,29 @@ textarea {
 	padding: 6px 16px;
 	position: relative;
 	text-align: center;
-	width: 120px;
 }
 
-.create-task-submit-btn:hover {
+.create-task-submit-btn:hover,
+.add-new-project-btn:hover {
 	background-color: #2c974b;
 }
 
-.create-task-submit-btn:active {
+.create-task-submit-btn:active,
+.add-new-project-btn:active {
 	background-color: #298e46;
 	box-shadow: rgba(20, 70, 32, 0.2) 0 1px 0 inset;
+}
+
+.cancel-new-project-btn {
+	background-color: #ff5733;
+}
+
+.cancel-new-project-btn:hover {
+	background-color: #e74c3c;
+}
+
+.cancel-new-project-btn:active {
+	background-color: #d63022;
 }
 
 /* Task */
@@ -284,4 +308,24 @@ textarea {
 .task-card p {
 	font-size: 16px;
 	margin-bottom: 5px;
+}
+
+/* New Project */
+
+.new-project-container {
+	flex-direction: column;
+	justify-content: center;
+}
+
+.new-project-btn-container {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	gap: 5px;
+}
+
+input#new-project {
+	font-family: Montserrat, sans-serif;
+	width: 90%;
 }

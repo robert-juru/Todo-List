@@ -1,5 +1,6 @@
 import './style.css';
 import uiModule from './ui.js'
+import projectModule from './project.js'
 
 // Get references to elements
 const menuButton = document.getElementById('menu-svg-button');
@@ -11,6 +12,11 @@ const closeModalBtn = document.getElementById('close-modal');
 const taskForm = document.getElementById('task-form');
 const main = document.querySelector('main');
 const allTasksContainer = document.getElementById('allTasksContainer');
+const projectsList = document.querySelector('.projects-list');
+const createProjectBtn = document.getElementById('create-project-btn');
+const newProjectContainer = document.querySelector('.new-project-container');
+const cancelNewProjectBtn = document.querySelector('.cancel-new-project-btn');
+const addNewProjectBtn = document.querySelector('.add-new-project-btn');
 const taskList = [];
 let lastSelectedButton = null;
 
@@ -24,7 +30,6 @@ function createTask(title, description, dueDate, priority, project) {
     };
     return task;
 }
-
 
 function createTaskCard(task) {
     const card = document.createElement('div');
@@ -51,11 +56,23 @@ export function handleFormSubmit(event) {
 
     const task = createTask(title, description, dueDate, priority, project);
     taskList.push(task);
+    console.log(taskList)
     createTaskCard(task);
     taskForm.reset();
 }
 
-uiModule.initBtnListeners();
+createProjectBtn.addEventListener('click', () => {
+    projectModule.showNewProjectContainer();
+});
 
+cancelNewProjectBtn.addEventListener('click', () => {
+    projectModule.hideNewProjectContainer();
+});
+
+addNewProjectBtn.addEventListener('click', () => {
+    projectModule.addNewProject();
+});
+
+uiModule.initBtnListeners();
 
 

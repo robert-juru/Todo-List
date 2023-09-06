@@ -1,22 +1,44 @@
 import { handleFormSubmit } from "./index.js";
 
 const uiModule = (function () {
+    //Get references to buttons and containers
+    const allTasksContainer = document.getElementById('allTasksContainer');
+    const importantTasksContainer = document.getElementById('importantTasksContainer');
+    const todayTasksContainer = document.getElementById('todayTasksContainer');
+    const allTasksButton = document.getElementById('allTasksButton');
+    const importantTasksButton = document.getElementById('importantTasksButton');
+    const todayTasksButton = document.getElementById('todayTasksButton');
+    const projectsList = document.querySelector('.projects-list');
+    const menuButton = document.getElementById('menu-svg-button');
+    const asideNav = document.querySelector('aside');
+    const navButtons = document.querySelectorAll('.nav-btn');
+    const createTaskBtn = document.getElementById('create-task-button');
+    const taskModal = document.getElementById('task-modal');
+    const closeModalBtn = document.getElementById('close-modal');
+    const taskForm = document.getElementById('task-form');
+    let lastSelectedButton = null;
+
     function initBtnListeners() {
         // Event listener for menu button
         menuButton.addEventListener('click', () => {
             asideNav.classList.toggle('show-aside');
         });
-        // Initialize event listeners for navigation buttons
+        // Initialize highlighting for navigation buttons
         navButtons.forEach(button => {
             button.addEventListener('click', () => {
                 highlightSelectedButton(button);
             });
         });
+        // Initialize highlighting for dynamically added projects
+        projectsList.addEventListener('click', (event) => {
+            const clickedProject = event.target;
+            highlightSelectedButton(clickedProject);
+        });
 
+        // Display the specific task section 
         allTasksButton.addEventListener('click', () => {
             showAllTasksSection()
             createMainHeader(allTasksButton.textContent, allTasksContainer);
-
         }
         );
         todayTasksButton.addEventListener('click', () => {
@@ -102,20 +124,3 @@ const uiModule = (function () {
 export default uiModule;
 
 
-//Get references to buttons and containers
-const allTasksContainer = document.getElementById('allTasksContainer');
-const importantTasksContainer = document.getElementById('importantTasksContainer');
-const todayTasksContainer = document.getElementById('todayTasksContainer');
-const allTasksButton = document.getElementById('allTasksButton');
-const importantTasksButton = document.getElementById('importantTasksButton');
-const todayTasksButton = document.getElementById('todayTasksButton');
-
-const menuButton = document.getElementById('menu-svg-button');
-const asideNav = document.querySelector('aside');
-const main = document.querySelector('main');
-const navButtons = document.querySelectorAll('.nav-btn');
-const createTaskBtn = document.getElementById('create-task-button');
-const taskModal = document.getElementById('task-modal');
-const closeModalBtn = document.getElementById('close-modal');
-const taskForm = document.getElementById('task-form');
-let lastSelectedButton = null;
