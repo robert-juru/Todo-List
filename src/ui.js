@@ -1,5 +1,3 @@
-import { handleFormSubmit } from "./index.js";
-
 const uiModule = (function () {
     //Get references to buttons and containers
     const allTasksContainer = document.getElementById('allTasksContainer');
@@ -15,7 +13,6 @@ const uiModule = (function () {
     const createTaskBtn = document.getElementById('create-task-button');
     const taskModal = document.getElementById('task-modal');
     const closeModalBtn = document.getElementById('close-modal');
-    const taskForm = document.getElementById('task-form');
     let lastSelectedButton = null;
 
     function initBtnListeners() {
@@ -65,7 +62,6 @@ const uiModule = (function () {
                 toggleTaskModal();
             }
         });
-        taskForm.addEventListener('submit', handleFormSubmit);
     }
 
     function createMainHeader(textContent, container) {
@@ -110,15 +106,7 @@ const uiModule = (function () {
         todayTasksContainer.style.display = 'block';
     }
 
-    return {
-        createMainHeader,
-        highlightSelectedButton,
-        toggleTaskModal,
-        initBtnListeners,
-        showAllTasksSection,
-        showImportantSection,
-        showTodaySection
-    };
+    return { initBtnListeners };
 })()
 
 export default uiModule;

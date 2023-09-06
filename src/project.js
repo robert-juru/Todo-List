@@ -45,13 +45,5 @@ const projectModule = (function () {
     }
 
     return { addNewProject, showNewProjectContainer, hideNewProjectContainer }
-    // Event listeners for showing, hiding and adding a new project
-    // createProjectBtn.addEventListener('click', showNewProjectContainer);
-    // cancelNewProjectBtn.addEventListener('click', hideNewProjectContainer);
-    // addNewProjectBtn.addEventListener('click', addNewProject)
 })()
-
-
-
-
 export default projectModule;
