@@ -22,8 +22,8 @@
 				</div>
 
 				<div class="header-brand">
-					<img class="header__logo" src="../src/img/header-icon.png" alt="" />
-					<h1 class="header__title">Chorelio</h1>
+					<img class="header-logo" src="../src/img/header-icon.png" alt="" />
+					<h1 class="header-title">Chorelio</h1>
 				</div>
 				<div class="right-header">
 					<button id="create-task-button" class="header-button">
@@ -77,6 +77,20 @@
 								<ion-icon name="create-outline"></ion-icon>
 								Add Project
 							</button>
+							<div class="new-project-container" style="display: none">
+								<input
+									type="text"
+									id="new-project"
+									name="new-project"
+									placeholder="Enter Project Name"
+									minlength="1"
+									maxlength="15"
+								/>
+								<div class="new-project-btn-container">
+									<button type="submit" class="add-new-project-btn">Add</button>
+									<button class="cancel-new-project-btn">Cancel</button>
+								</div>
+							</div>
 						</div>
 						<div class="action-buttons-container">
 							<a href="#" class="action-button" id="settings">
@@ -95,16 +109,10 @@
 					<div
 						class="task-container"
 						id="allTasksContainer"
-            style="display:block"
+						style="display: block"
 					></div>
-					<div
-						class="task-container"
-						id="importantTasksContainer"
-					></div>
-					<div
-						class="task-container"
-						id="todayTasksContainer"
-					></div>
+					<div class="task-container" id="importantTasksContainer"></div>
+					<div class="task-container" id="todayTasksContainer"></div>
 				</main>
 			</section>
 		</div>
@@ -134,13 +142,20 @@
 					</select>
 
 					<label for="project">Project:</label>
-					<input type="text" id="project" name="project" required/>
+					<input type="text" id="project" name="project" required />
 					<div class="submit-btn-container">
 						<button type="submit" class="create-task-submit-btn">
 							Create Task
 						</button>
 					</div>
 				</form>
+			</div>
+		</div>
+
+		<!-- Create Project modal -->
+		<div id="project-modal" class="modal">
+			<div class="modal-content">
+				<span class="close" id="close-modal">&times;</span>
 			</div>
 		</div>
 
