@@ -1,5 +1,5 @@
 const projectModule = (function () {
-    //references to buttons and containers
+    //References to buttons and containers
     const newProjectContainer = document.querySelector('.new-project-container');
     const projectsList = document.querySelector('.projects-list');
     // Create and return an ion-icon element
@@ -43,7 +43,7 @@ const projectModule = (function () {
         newProjectInput.value = ''; // input reset
         newProjectContainer.style.display = 'none';
     }
-
+    
     return { addNewProject, showNewProjectContainer, hideNewProjectContainer }
 })()
 export default projectModule;

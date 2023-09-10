@@ -34,17 +34,17 @@ const uiModule = (function () {
 
         // Display the specific task section 
         allTasksButton.addEventListener('click', () => {
-            showAllTasksSection()
+            toggleTaskSection('allTasks')
             createMainHeader(allTasksButton.textContent, allTasksContainer);
         }
         );
         todayTasksButton.addEventListener('click', () => {
-            showTodaySection()
+            toggleTaskSection('todayTasks')
             createMainHeader(todayTasksButton.textContent, todayTasksContainer);
         }
         );
         importantTasksButton.addEventListener('click', () => {
-            showImportantSection()
+            toggleTaskSection('importantTasks')
             createMainHeader(importantTasksButton.textContent, importantTasksContainer);
         }
         );
@@ -88,27 +88,13 @@ const uiModule = (function () {
         }
     }
 
-    function showAllTasksSection() {
-        allTasksContainer.style.display = 'block';
-        importantTasksContainer.style.display = 'none';
-        todayTasksContainer.style.display = 'none';
+    function toggleTaskSection(section) {
+        allTasksContainer.style.display = section === 'allTasks' ? 'block' : "none";
+        importantTasksContainer.style.display = section === 'importantTasks' ? 'block' : "none";
+        todayTasksContainer.style.display = section === 'todayTasks' ? 'block' : "none";
     }
-
-    function showImportantSection() {
-        allTasksContainer.style.display = 'none';
-        importantTasksContainer.style.display = 'block';
-        todayTasksContainer.style.display = 'none';
-    }
-
-    function showTodaySection() {
-        allTasksContainer.style.display = 'none';
-        importantTasksContainer.style.display = 'none';
-        todayTasksContainer.style.display = 'block';
-    }
-
-    return { initBtnListeners };
+    return { initBtnListeners, createMainHeader };
 })()
-
 export default uiModule;
 
 
