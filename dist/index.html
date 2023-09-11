@@ -106,9 +106,9 @@
 				</aside>
 
 				<main>
-					<div class="task-container" id="allTasksContainer"></div>
-					<div class="task-container" id="importantTasksContainer"></div>
-					<div class="task-container" id="todayTasksContainer"></div>
+					<div class="task-container" id="allTasksContainer" style="display:none"></div>
+					<div class="task-container" id="importantTasksContainer" style="display:none"></div>
+					<div class="task-container" id="todayTasksContainer" style="display:none"></div>
 				</main>
 			</section>
 		</div>
@@ -132,8 +132,8 @@
 
 					<label for="priority">Priority:</label>
 					<select id="priority" name="priority">
-						<option value="low">Important</option>
-						<option value="medium">Not Important</option>
+						<option value="important">Important</option>
+						<option value="not-important">Not Important</option>
 					</select>
 
 					<label for="project">Project:</label>

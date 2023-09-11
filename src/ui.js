@@ -35,17 +35,14 @@ const uiModule = (function () {
         // Display the specific task section 
         allTasksButton.addEventListener('click', () => {
             toggleTaskSection('allTasks')
-            createMainHeader(allTasksButton.textContent, allTasksContainer);
         }
         );
         todayTasksButton.addEventListener('click', () => {
             toggleTaskSection('todayTasks')
-            createMainHeader(todayTasksButton.textContent, todayTasksContainer);
         }
         );
         importantTasksButton.addEventListener('click', () => {
             toggleTaskSection('importantTasks')
-            createMainHeader(importantTasksButton.textContent, importantTasksContainer);
         }
         );
 
@@ -60,8 +57,10 @@ const uiModule = (function () {
         document.addEventListener('click', (event) => {
             if (event.target === taskModal) {
                 toggleTaskModal();
-            }
+            }  
         });
+        // Initialize the task pages with their respective header
+        document.addEventListener('DOMContentLoaded', initializePage);
     }
 
     function createMainHeader(textContent, container) {
@@ -70,6 +69,12 @@ const uiModule = (function () {
         if (container.textContent === '') {
             container.appendChild(mainHeader);
         }
+    }
+
+    function initializePage() {
+        createMainHeader(allTasksButton.textContent, allTasksContainer);
+        createMainHeader(todayTasksButton.textContent, todayTasksContainer);
+        createMainHeader(importantTasksButton.textContent, importantTasksContainer);
     }
 
     function highlightSelectedButton(button) {
@@ -93,7 +98,7 @@ const uiModule = (function () {
         importantTasksContainer.style.display = section === 'importantTasks' ? 'block' : "none";
         todayTasksContainer.style.display = section === 'todayTasks' ? 'block' : "none";
     }
-    return { initBtnListeners, createMainHeader };
+    return { initBtnListeners, createMainHeader, toggleTaskModal };
 })()
 export default uiModule;
 

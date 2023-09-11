@@ -5,6 +5,7 @@ const taskModule = (function () {
     const taskForm = document.getElementById('task-form');
     const taskList = [];
     const todayTasksContainer = document.getElementById('todayTasksContainer');
+    const importantTasksContainer = document.getElementById('importantTasksContainer');
     const today = format(new Date(), 'dd-MM-yyyy');
 
     //Create a task object 
@@ -36,6 +37,17 @@ const taskModule = (function () {
         return card;
     }
 
+    function extractTaskFromForm() {
+        // Extract task data from the form elements
+        const title = taskForm.querySelector('#title').value;
+        const description = taskForm.querySelector('#description').value;
+        const dueDate = taskForm.querySelector('#due-date').value;
+        const priority = taskForm.querySelector('#priority').value;
+        const project = taskForm.querySelector('#project').value;
+
+        return createTask(title, description, dueDate, priority, project);
+    }
+
     function displayTasksForToday() {
         //Filters tasks with due dates for today
         const todayTasks = taskList.filter(task => {
@@ -49,10 +61,27 @@ const taskModule = (function () {
         todayTasksContainer.innerHTML = ''; // Clear previous tasks
         // Re-create the header
         uiModule.createMainHeader(todayTasksButton.textContent, todayTasksContainer);
-        // Append the tasks
+        // Append the today's tasks
         todayTasks.forEach(task => {
             const taskCard = createTaskCard(task);
             todayTasksContainer.appendChild(taskCard);
+        });
+    }
+    // Filter tasks based on priority
+    function filterTasksByPriority(tasks, priority) {
+        return tasks.filter(task => task.priority === priority);
+    }
+
+    // Display tasks in the "Important" section
+    function displayImportantTasks() {
+        importantTasksContainer.innerHTML = ''; // Clear previous tasks
+        // Re-create the header
+        uiModule.createMainHeader(importantTasksButton.textContent, importantTasksContainer);
+        //Append the important tasks
+        const importantTasks = filterTasksByPriority(taskList, 'important');
+        importantTasks.forEach(task => {
+            const taskCard = createTaskCard(task);
+            importantTasksContainer.appendChild(taskCard);
         });
     }
     //Handle form submissions for creating new tasks
@@ -60,33 +89,28 @@ const taskModule = (function () {
         event.preventDefault();
         const task = extractTaskFromForm(); // Extract task data from the form    
         addTaskToList(task); // Add the task to the list
-        updateTaskUI(task)
-        taskForm.reset();
+        updateTaskUI(task) // Create the visual task card
+        taskForm.reset(); //Reset the form
+        uiModule.toggleTaskModal(); // Close the modal
     }
-
-    function addTaskToList(task) {
-        // Add the task to the list
-        taskList.push(task);
-    }
-    function extractTaskFromForm() {
-        // Extract task data from the form elements
-        const title = taskForm.querySelector('#title').value;
-        const description = taskForm.querySelector('#description').value;
-        const dueDate = taskForm.querySelector('#due-date').value;
-        const priority = taskForm.querySelector('#priority').value;
-        const project = taskForm.querySelector('#project').value;
-
-        return createTask(title, description, dueDate, priority, project);
-    }
-
     function updateTaskUI(task) {
         createTaskCard(task); // Create the visual task card
+
         // Check if the new task's due date is today
         const formattedDueDate = format(new Date(task.dueDate), 'dd-MM-yyyy');
         if (formattedDueDate === today) {
             displayTasksForToday(); // Update today's tasks in the UI
         }
+        //Check if the new task's priority is important
+        if (task.priority === 'important') {
+            displayImportantTasks(); // Update important tasks in the UI
+        }
     }
-    return { createTask, createTaskCard, handleFormSubmit, displayTasksForToday }
+    function addTaskToList(task) {
+        // Add the task to the list
+        taskList.push(task);
+    }
+
+    return { createTask, createTaskCard, handleFormSubmit, displayTasksForToday, displayImportantTasks }
 })()
 export default taskModule;
