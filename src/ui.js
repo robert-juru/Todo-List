@@ -6,7 +6,7 @@ const uiModule = (function () {
     const allTasksButton = document.getElementById('allTasksButton');
     const importantTasksButton = document.getElementById('importantTasksButton');
     const todayTasksButton = document.getElementById('todayTasksButton');
-    const projectsList = document.querySelector('.projects-list');
+    const projectsContainer = document.querySelector('.projects-container');
     const menuButton = document.getElementById('menu-svg-button');
     const asideNav = document.querySelector('aside');
     const navButtons = document.querySelectorAll('.nav-btn');
@@ -27,7 +27,7 @@ const uiModule = (function () {
             });
         });
         // Initialize highlighting for dynamically added projects
-        projectsList.addEventListener('click', (event) => {
+        projectsContainer.addEventListener('click', (event) => {
             const clickedProject = event.target;
             highlightSelectedButton(clickedProject);
         });

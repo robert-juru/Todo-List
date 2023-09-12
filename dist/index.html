@@ -65,13 +65,13 @@
 								</div>
 							</div>
 						</div>
-						<div class="projects-container">
+						<div class="projects-section-container">
 							<h2 class="projects-header">PROJECTS</h2>
-							<div class="projects-list">
-								<div class="nav-btn project">
+							<div class="projects-container">
+								<!-- <div class="nav-btn project">
 									<ion-icon name="menu-outline" size="small"></ion-icon>
 									Home Chores
-								</div>
+								</div> -->
 							</div>
 							<button id="create-project-btn">
 								<ion-icon name="create-outline"></ion-icon>
@@ -106,9 +106,21 @@
 				</aside>
 
 				<main>
-					<div class="task-container" id="allTasksContainer" style="display:none"></div>
-					<div class="task-container" id="importantTasksContainer" style="display:none"></div>
-					<div class="task-container" id="todayTasksContainer" style="display:none"></div>
+					<div
+						class="task-container"
+						id="allTasksContainer"
+						style="display: none"
+					></div>
+					<div
+						class="task-container"
+						id="importantTasksContainer"
+						style="display: none"
+					></div>
+					<div
+						class="task-container"
+						id="todayTasksContainer"
+						style="display: none"
+					></div>
 				</main>
 			</section>
 		</div>
@@ -137,20 +149,15 @@
 					</select>
 
 					<label for="project">Project:</label>
-					<input type="text" id="project" name="project" required />
+					<select id="project-selector" name="project-selector">
+						<option value="all-tasks">All Tasks</option>
+					</select>
 					<div class="submit-btn-container">
 						<button type="submit" class="create-task-submit-btn">
 							Create Task
 						</button>
 					</div>
 				</form>
-			</div>
-		</div>
-
-		<!-- Create Project modal -->
-		<div id="project-modal" class="modal">
-			<div class="modal-content">
-				<span class="close" id="close-modal">&times;</span>
 			</div>
 		</div>
 

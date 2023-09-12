@@ -1,7 +1,11 @@
 const projectModule = (function () {
     //References to buttons and containers
     const newProjectContainer = document.querySelector('.new-project-container');
-    const projectsList = document.querySelector('.projects-list');
+    const projectsContainer = document.querySelector('.projects-container');
+    const projectItems = projectsContainer.querySelectorAll('.nav-btn.project');
+    const projectSelector = document.getElementById('project-selector');
+    const newProjectInput = document.getElementById('new-project');
+
     // Create and return an ion-icon element
     function createProjectIcon() {
         let projectIcon = document.createElement('ion-icon')
@@ -12,25 +16,21 @@ const projectModule = (function () {
     // Create a project element and return it
     function createProjectElement(projectName) {
         const project = document.createElement('div');
-        const projectNameSpan = document.createElement('span');
-        projectNameSpan.textContent = projectName;
-
-        project.classList.add('nav-btn', 'project');
         project.appendChild(createProjectIcon());
-        project.appendChild(projectNameSpan);
-
+        project.innerHTML += projectName;
+        project.classList.add('nav-btn', 'project');
         return project;
     }
     // Add a new project to the projects list
     function addNewProject() {
-        const newProjectInput = document.getElementById('new-project');
         const projectName = newProjectInput.value;
 
         if (projectName) {
             const project = createProjectElement(projectName);
-            projectsList.appendChild(project);
+            projectsContainer.appendChild(project);
             newProjectInput.value = ''; // input reset
             newProjectContainer.style.display = 'none';
+            console.log(projectItems)
         }
     }
     // Display the new project input container
@@ -43,7 +43,22 @@ const projectModule = (function () {
         newProjectInput.value = ''; // input reset
         newProjectContainer.style.display = 'none';
     }
-    
-    return { addNewProject, showNewProjectContainer, hideNewProjectContainer }
+    // Add projects to the task modal project selector
+    function populateProjectSelector() {
+        // Clear only dynamically added options
+        while (projectSelector.lastChild && projectSelector.lastChild.value !== 'all-tasks') {
+            projectSelector.removeChild(projectSelector.lastChild);
+        }
+        const projectItems = projectsContainer.querySelectorAll('.nav-btn.project');
+
+       // Append the project items to the project selector
+        projectItems.forEach(projectItem => {
+            const option = document.createElement('option');
+            option.value = projectItem.textContent;
+            option.textContent = option.value;
+            projectSelector.appendChild(option);
+        })
+    }
+    return { addNewProject, showNewProjectContainer, hideNewProjectContainer, populateProjectSelector }
 })()
 export default projectModule;

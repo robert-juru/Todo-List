@@ -43,7 +43,7 @@ const taskModule = (function () {
         const description = taskForm.querySelector('#description').value;
         const dueDate = taskForm.querySelector('#due-date').value;
         const priority = taskForm.querySelector('#priority').value;
-        const project = taskForm.querySelector('#project').value;
+        const project = taskForm.querySelector('#project-selector').value;
 
         return createTask(title, description, dueDate, priority, project);
     }
@@ -87,7 +87,9 @@ const taskModule = (function () {
     //Handle form submissions for creating new tasks
     function handleFormSubmit(event) {
         event.preventDefault();
-        const task = extractTaskFromForm(); // Extract task data from the form    
+        const task = extractTaskFromForm(); // Extract task data from the form 
+
+
         addTaskToList(task); // Add the task to the list
         updateTaskUI(task) // Create the visual task card
         taskForm.reset(); //Reset the form

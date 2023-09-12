@@ -20,10 +20,13 @@ cancelNewProjectBtn.addEventListener('click', () => {
 
 addNewProjectBtn.addEventListener('click', () => {
     projectModule.addNewProject();
+    projectModule.populateProjectSelector();
 });
 
 //Event listener for task form submission
 taskForm.addEventListener('submit', taskModule.handleFormSubmit);
+// document.addEventListener('DOMContentLoaded', projectModule.populateProjectSelector)
+
 
 uiModule.initBtnListeners();
 
