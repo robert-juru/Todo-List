@@ -1,3 +1,5 @@
+import projectModule from "./project";
+
 const uiModule = (function () {
     //Get references to buttons and containers
     const allTasksContainer = document.getElementById('allTasksContainer');
@@ -26,22 +28,30 @@ const uiModule = (function () {
                 highlightSelectedButton(button);
             });
         });
-        // Initialize highlighting for dynamically added projects
-        projectsContainer.addEventListener('click', (event) => {
-            const clickedProject = event.target;
-            highlightSelectedButton(clickedProject);
-        });
 
+        // Initialize highlighting for dynamically added projects & display project page
+        projectsContainer.addEventListener('click', (event) => {
+            const clickedProject = event.target.closest('.nav-btn.project');
+            if (clickedProject) {
+                const projectName = clickedProject.getAttribute('id');
+                highlightSelectedButton(clickedProject);
+                hidePages();
+                projectModule.showProjectContainerAndHeader(projectName);
+            }
+        });
         // Display the specific task section 
         allTasksButton.addEventListener('click', () => {
+            hidePages();
             toggleTaskSection('allTasks')
         }
         );
         todayTasksButton.addEventListener('click', () => {
+            hidePages();
             toggleTaskSection('todayTasks')
         }
         );
         importantTasksButton.addEventListener('click', () => {
+            hidePages();
             toggleTaskSection('importantTasks')
         }
         );
@@ -57,7 +67,7 @@ const uiModule = (function () {
         document.addEventListener('click', (event) => {
             if (event.target === taskModal) {
                 toggleTaskModal();
-            }  
+            }
         });
         // Initialize the task pages with their respective header
         document.addEventListener('DOMContentLoaded', initializePage);
@@ -98,7 +108,18 @@ const uiModule = (function () {
         importantTasksContainer.style.display = section === 'importantTasks' ? 'block' : "none";
         todayTasksContainer.style.display = section === 'todayTasks' ? 'block' : "none";
     }
-    return { initBtnListeners, createMainHeader, toggleTaskModal };
+
+    function hidePages() {
+        const projectPageContainers = document.querySelectorAll('.project-page-container');
+        const taskPageContainer = document.querySelectorAll('.task-container');
+        taskPageContainer.forEach(container => {
+            container.style.display = 'none';
+        });
+        projectPageContainers.forEach(container => {
+            container.style.display = 'none';
+        });
+    }
+    return { initBtnListeners, createMainHeader, toggleTaskModal, hidePages };
 })()
 export default uiModule;
 

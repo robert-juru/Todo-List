@@ -25,9 +25,10 @@ addNewProjectBtn.addEventListener('click', () => {
 
 //Event listener for task form submission
 taskForm.addEventListener('submit', taskModule.handleFormSubmit);
-// document.addEventListener('DOMContentLoaded', projectModule.populateProjectSelector)
-
 
 uiModule.initBtnListeners();
+
+
+
 
 

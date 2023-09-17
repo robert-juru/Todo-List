@@ -1,5 +1,6 @@
 import { format } from 'date-fns'
 import uiModule from './ui.js';
+import projectModule from './project.js';
 
 const taskModule = (function () {
     const taskForm = document.getElementById('task-form');
@@ -84,16 +85,16 @@ const taskModule = (function () {
             importantTasksContainer.appendChild(taskCard);
         });
     }
+
     //Handle form submissions for creating new tasks
     function handleFormSubmit(event) {
         event.preventDefault();
         const task = extractTaskFromForm(); // Extract task data from the form 
-
-
         addTaskToList(task); // Add the task to the list
         updateTaskUI(task) // Create the visual task card
         taskForm.reset(); //Reset the form
         uiModule.toggleTaskModal(); // Close the modal
+           projectModule.addTaskToProjectContainer(task);
     }
     function updateTaskUI(task) {
         createTaskCard(task); // Create the visual task card
