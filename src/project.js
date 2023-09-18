@@ -120,13 +120,12 @@ const projectModule = (function () {
     }
 
     function addTaskToProjectContainer(task) {
-        const projectContainer = document.getElementById(`${task.project}-page-container`);
-        const taskCard = taskModule.createTaskCard(task);
-        projectContainer.innerHTML = ''; // Clear previous tasks
-        // Re-create the header
-        uiModule.createMainHeader(task.project, projectContainer);
-        //Append the task to the project container
-        projectContainer.appendChild(taskCard);
+        if (task.project !== "all-tasks") {
+            const projectContainer = document.getElementById(`${task.project}-page-container`);
+            const taskCard = taskModule.createTaskCard(task);
+            //Append the task to the project container
+            projectContainer.appendChild(taskCard);
+        }
     }
 
     return { addNewProject, showNewProjectContainer, hideNewProjectContainer, populateProjectSelector, showProjectContainer, addTaskToProjectContainer }

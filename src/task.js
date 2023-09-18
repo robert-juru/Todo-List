@@ -5,6 +5,7 @@ import projectModule from './project.js';
 const taskModule = (function () {
     const taskForm = document.getElementById('task-form');
     const taskList = [];
+    const allTasksContainer = document.getElementById('allTasksContainer');
     const todayTasksContainer = document.getElementById('todayTasksContainer');
     const importantTasksContainer = document.getElementById('importantTasksContainer');
     const today = format(new Date(), 'dd-MM-yyyy');
@@ -34,7 +35,7 @@ const taskModule = (function () {
           <p>Priority: ${task.priority}</p>
           <p>Project: ${task.project}</p>
         `;
-        allTasksContainer.appendChild(card);
+
         return card;
     }
 
@@ -94,11 +95,11 @@ const taskModule = (function () {
         updateTaskUI(task) // Create the visual task card
         taskForm.reset(); //Reset the form
         uiModule.toggleTaskModal(); // Close the modal
-           projectModule.addTaskToProjectContainer(task);
+        projectModule.addTaskToProjectContainer(task);
     }
     function updateTaskUI(task) {
-        createTaskCard(task); // Create the visual task card
-
+        let card = createTaskCard(task); // Create the visual task card
+        allTasksContainer.appendChild(card); // Append the visual task card to All Tasks
         // Check if the new task's due date is today
         const formattedDueDate = format(new Date(task.dueDate), 'dd-MM-yyyy');
         if (formattedDueDate === today) {
