@@ -5,9 +5,11 @@ const projectModule = (function () {
     //References to buttons and containers
     const newProjectContainer = document.querySelector('.new-project-container');
     const projectsContainer = document.querySelector('.projects-container');
+    const projectSectionContainer = document.querySelector('.projects-section-container');
     const projectSelector = document.getElementById('project-selector');
     const newProjectInput = document.getElementById('new-project');
     const mainSection = document.querySelector('main');
+    const alertMessage = createAlertMessage('Project name is not valid. Please choose a different name.');
     let projectList = []
     const createdProjectNames = [];
 
@@ -26,7 +28,6 @@ const projectModule = (function () {
         project.classList.add('nav-btn', 'project');
         project.setAttribute('id', `${projectName}`);
         projectList.push(project)
-        console.log(projectList)
         return project;
     }
 
@@ -44,17 +45,14 @@ const projectModule = (function () {
         mainSection.appendChild(projectPageContainer);
     }
 
-    function showProjectContainerAndHeader(projectName) {
-        // Show the selected project container
+    function showProjectContainer(projectName) {
         const selectedContainer = document.getElementById(`${projectName}-page-container`);
         selectedContainer.style.display = 'block';
-        // Append the header for the selected project
-        // uiModule.createMainHeader(projectName, selectedContainer);
     }
 
     // Add a new project to the projects list
     function addNewProject() {
-        const projectName = newProjectInput.value;
+        const projectName = newProjectInput.value.trim();
 
         if (projectName && !createdProjectNames.includes(projectName)) {
             const project = createProjectElement(projectName);
@@ -69,10 +67,29 @@ const projectModule = (function () {
             uiModule.createMainHeader(projectName, selectedContainer);
             // Store the project name for duplication check
             createdProjectNames.push(projectName);
-            
+            // If the project name is unique and valid, remove any previous duplication message
+            removeDuplicateProjectAlert(alertMessage);
+
         } else {
             // Handle the case where the project name already exists
-            alert('Project name already exists. Please choose a different name.');
+            alertDuplicateProject()
+        }
+    }
+
+    function createAlertMessage(textContent) {
+        const alertMessage = document.createElement('div');
+        alertMessage.textContent = textContent;
+        alertMessage.style.paddingTop = '10px';
+        return alertMessage;
+    }
+
+    function alertDuplicateProject() {
+        projectSectionContainer.insertBefore(alertMessage, newProjectContainer);
+    }
+
+    function removeDuplicateProjectAlert(alertMessage) {
+        if (alertMessage && alertMessage.parentNode) {
+            alertMessage.parentNode.removeChild(alertMessage);
         }
     }
     // Display the new project input container
@@ -84,6 +101,7 @@ const projectModule = (function () {
         const newProjectInput = document.getElementById('new-project');
         newProjectInput.value = ''; // input reset
         newProjectContainer.style.display = 'none';
+        removeDuplicateProjectAlert(alertMessage);
     }
     // Add projects to the task modal project selector
     function populateProjectSelector() {
@@ -109,10 +127,8 @@ const projectModule = (function () {
         uiModule.createMainHeader(task.project, projectContainer);
         //Append the task to the project container
         projectContainer.appendChild(taskCard);
-        console.log(projectContainer)
-
     }
 
-    return { addNewProject, showNewProjectContainer, hideNewProjectContainer, populateProjectSelector, showProjectContainerAndHeader, addTaskToProjectContainer }
+    return { addNewProject, showNewProjectContainer, hideNewProjectContainer, populateProjectSelector, showProjectContainer, addTaskToProjectContainer }
 })()
 export default projectModule;

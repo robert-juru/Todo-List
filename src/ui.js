@@ -36,7 +36,7 @@ const uiModule = (function () {
                 const projectName = clickedProject.getAttribute('id');
                 highlightSelectedButton(clickedProject);
                 hidePages();
-                projectModule.showProjectContainerAndHeader(projectName);
+                projectModule.showProjectContainer(projectName);
             }
         });
         // Display the specific task section 
