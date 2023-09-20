@@ -8,7 +8,7 @@ const taskModule = (function () {
     const allTasksContainer = document.getElementById('allTasksContainer');
     const todayTasksContainer = document.getElementById('todayTasksContainer');
     const importantTasksContainer = document.getElementById('importantTasksContainer');
-    const today = format(new Date(), 'dd-MM-yyyy');
+    const today = format(new Date(), "MMM d, yyyy");
 
     //Create a task object 
     function createTask(title, description, dueDate, priority, project) {
@@ -22,20 +22,37 @@ const taskModule = (function () {
         return task;
     }
 
+
+    function stylizeTaskCardByPriority(taskCard, priority) {
+        if (priority === 'important')
+            taskCard.style.borderLeft = '5px solid #FF0000';
+        else
+            taskCard.style.borderLeft = '5px solid #2ABD67';
+    }
+
     //Create visual task card 
     function createTaskCard(task) {
         const card = document.createElement('div');
         card.classList.add('task-card');
-        const formattedDueDate = format(new Date(task.dueDate), 'dd-MM-yyyy');
+        const formattedDueDate = format(new Date(task.dueDate), "MMM d, yyyy");
 
         card.innerHTML = `
-          <h3>${task.title}</h3>
-          <p>Description: ${task.description}</p>
-          <p>Due Date: ${formattedDueDate}</p>
-          <p>Priority: ${task.priority}</p>
-          <p>Project: ${task.project}</p>
+        <input
+        type="checkbox"
+        class="task-status-checkbox"
+        id="taskCheckbox"
+    />
+    <div class="task-summary">
+        <h3 class="task-name">${task.title}</h3>
+        <p id="task-description">${task.description}</p>
+    </div>
+    <div class="task-actions">
+        <p>${formattedDueDate}</p>
+        <ion-icon name="create-outline"></ion-icon>
+        <ion-icon name="trash-outline"></ion-icon>
+    </div>
         `;
-
+        stylizeTaskCardByPriority(card, task.priority);
         return card;
     }
 
@@ -53,7 +70,7 @@ const taskModule = (function () {
     function displayTasksForToday() {
         //Filters tasks with due dates for today
         const todayTasks = taskList.filter(task => {
-            const taskDate = format(new Date(task.dueDate), 'dd-MM-yyyy');
+            const taskDate = format(new Date(task.dueDate), "MMM d, yyyy");
             return today === taskDate;
         });
         updateTodayTasksUI(todayTasks);
@@ -101,7 +118,7 @@ const taskModule = (function () {
         let card = createTaskCard(task); // Create the visual task card
         allTasksContainer.appendChild(card); // Append the visual task card to All Tasks
         // Check if the new task's due date is today
-        const formattedDueDate = format(new Date(task.dueDate), 'dd-MM-yyyy');
+        const formattedDueDate = format(new Date(task.dueDate), "MMM d, yyyy");
         if (formattedDueDate === today) {
             displayTasksForToday(); // Update today's tasks in the UI
         }

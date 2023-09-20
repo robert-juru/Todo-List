@@ -15,6 +15,8 @@ const uiModule = (function () {
     const createTaskBtn = document.getElementById('create-task-button');
     const taskModal = document.getElementById('task-modal');
     const closeModalBtn = document.getElementById('close-modal');
+    const mainContainer = document.querySelector('main');
+
     let lastSelectedButton = null;
 
     function initBtnListeners() {
@@ -29,6 +31,21 @@ const uiModule = (function () {
             });
         });
 
+        // When a checkbox is changed, toggle the text decoration & color for the taskCard.
+        mainContainer.addEventListener('change', function (event) {
+            const target = event.target;
+            if (target.classList.contains('task-status-checkbox')) {
+                const taskName = target.closest('.task-card').querySelector('.task-name');
+                const taskCard = target.closest('.task-card');
+                if (target.checked) {
+                    taskName.style.textDecoration = 'line-through';
+                    taskCard.style.color='#696969';
+                } else {
+                    taskName.style.textDecoration = 'none';
+                    taskCard.style.color='black';
+                }
+            }
+        });
         // Initialize highlighting for dynamically added projects & display project page
         projectsContainer.addEventListener('click', (event) => {
             const clickedProject = event.target.closest('.nav-btn.project');
@@ -119,6 +136,7 @@ const uiModule = (function () {
             container.style.display = 'none';
         });
     }
+
     return { initBtnListeners, createMainHeader, toggleTaskModal, hidePages };
 })()
 export default uiModule;
