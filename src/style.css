@@ -80,8 +80,6 @@ header {
 
 .hidden {
 	display: none;
-	background-color: #f7f7f7;
-	padding-left: 20px;
 }
 
 .show-aside {
@@ -90,12 +88,11 @@ header {
 	padding: 10px 0px 0px 20px;
 	min-width: 200px;
 	max-width: 300px;
+	background-color: #f7f7f7;
+	padding-left: 20px;
 }
 
 .main-content {
-	/* display: grid; */
-	/* grid-template-columns: 1fr 4fr; */
-	/* grid-template-rows: 1fr; */
 	display: flex;
 }
 

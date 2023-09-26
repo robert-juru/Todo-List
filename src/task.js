@@ -23,7 +23,31 @@ const taskModule = (function () {
         };
         return task;
     }
+    function clearTasksInSection(section) {
+        const taskCards = section.querySelectorAll('.task-card');
+        taskCards.forEach(taskCard => {
+            section.removeChild(taskCard);
+        });
+    }
+    function renderAllSections() {
+        // Clear the content of the all tasks container
+        clearTasksInSection(allTasksContainer);
+        // Loop through the taskList and create task cards for each task
+        console.log(taskList);
+        taskList.forEach(task => {
+            updateTaskUI(task);
+        });
+    }
 
+    function filterTasksForToday() {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        return taskList.filter(task => {
+            const taskDueDate = new Date(task.dueDate);
+            taskDueDate.setHours(0, 0, 0, 0);
+            return today.getTime() === taskDueDate.getTime();
+        });
+    }
 
     function stylizeTaskCardByPriority(taskCard, priority) {
         if (priority === 'important')
@@ -36,6 +60,7 @@ const taskModule = (function () {
     function createTaskCard(task) {
         const card = document.createElement('div');
         card.classList.add('task-card');
+        card.setAttribute('data-task-id', task.id);
         const formattedDueDate = format(new Date(task.dueDate), "MMM d, yyyy");
 
         card.innerHTML = `
@@ -87,11 +112,7 @@ const taskModule = (function () {
     }
 
     function displayTasksForToday() {
-        //Filters tasks with due dates for today
-        const todayTasks = taskList.filter(task => {
-            const taskDate = format(new Date(task.dueDate), "MMM d, yyyy");
-            return today === taskDate;
-        });
+        const todayTasks = filterTasksForToday();
         updateTodayTasksUI(todayTasks);
     }
 
@@ -145,18 +166,15 @@ const taskModule = (function () {
         if (task.priority === 'important') {
             displayImportantTasks(); // Update important tasks in the UI
         }
+        //Update the task UI for the project section
+        if (task.project !== "all-tasks") {
+            projectModule.addTaskToProjectContainer(task);
+        }
     }
-
-    
-
-
 
     function addTaskToList(task) {
-        // Add the task to the list
         taskList.push(task);
-        console.log(taskList)
     }
-
-    return { createTask, createTaskCard, handleFormSubmit, displayTasksForToday, displayImportantTasks }
+    return { createTask, createTaskCard, handleFormSubmit, displayTasksForToday, displayImportantTasks, taskList, renderAllSections }
 })()
 export default taskModule;

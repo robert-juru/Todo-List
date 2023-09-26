@@ -120,11 +120,16 @@ const projectModule = (function () {
     }
 
     function addTaskToProjectContainer(task) {
-        if (task.project !== "all-tasks") {
-            const projectContainer = document.getElementById(`${task.project}-page-container`);
-            const taskCard = taskModule.createTaskCard(task);
-            //Append the task to the project container
-            projectContainer.appendChild(taskCard);
+        let card = taskModule.createTaskCard(task)
+        const projectContainer = document.getElementById(`${task.project}-page-container`);
+        //Append the task to the project container
+        const existingTaskCard = projectContainer.querySelector(`.task-card[data-task-id="${task.id}"]`);
+        if (!existingTaskCard) {
+            projectContainer.appendChild(card);
+        }
+        else {
+            projectContainer.removeChild(existingTaskCard);
+            projectContainer.appendChild(card);
         }
     }
 

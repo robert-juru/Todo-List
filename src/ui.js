@@ -30,23 +30,31 @@ const uiModule = (function () {
         navButtons.forEach(button => {
             button.addEventListener('click', () => {
                 highlightSelectedButton(button);
+                taskModule.renderAllSections();
             });
+
         });
 
-        function createEditableDateElement(target, initialText) {
+        function createEditableDateElement(target, initialText, task) {
             const inputElement = document.createElement('input');
             inputElement.type = 'date';
             inputElement.value = format(new Date(initialText), "yyyy-MM-dd");
+            
             inputElement.addEventListener('keydown', (e) => {
                 if (e.key === 'Enter' || e.key === 'Escape') {
-                    target.textContent = format(new Date(inputElement.value), "MMM d, yyyy")
+                    const editedDate = new Date(inputElement.value);
+                    target.textContent = format(editedDate, "MMM d, yyyy");
+                    task.dueDate = editedDate.toISOString(); // Update the task's dueDate property
                     inputElement.remove();
+                    taskModule.displayTasksForToday();
                 }
             });
+        
             target.innerHTML = '';
             target.appendChild(inputElement);
             inputElement.focus();
         }
+        
 
         function createEditableElement(container, initialValue, callback) {
             if (container.querySelector('.edit-task-input')) {
@@ -68,7 +76,7 @@ const uiModule = (function () {
             });
 
             textContentSpan.addEventListener('click', (e) => {
-                e.stopPropagation(); // Prevent the click event from bubbling up to the container
+                // e.stopPropagation(); // Prevent the click event from bubbling up to the container
                 let inputElement = document.createElement('input');
                 inputElement.classList.add('edit-task-input');
                 inputElement.value = textContentSpan.textContent;
@@ -78,10 +86,10 @@ const uiModule = (function () {
                     const editedValue = inputElement.value;
 
                     // Update the displayed content with the new value
-                    if (editedValue !== "") { // Check if the edited text is not empty
+                    if (editedValue !== "") { 
                         textContentSpan.textContent = editedValue;
                     }
-                    container.innerHTML = ''; 
+                    container.innerHTML = '';
                     container.appendChild(textContentSpan);
                     inputElement.remove();
 
@@ -89,7 +97,7 @@ const uiModule = (function () {
                         callback(editedValue);
                     }
                 });
-                container.innerHTML = ''; 
+                container.innerHTML = '';
                 container.appendChild(inputElement);
                 inputElement.focus();
             });
@@ -97,29 +105,40 @@ const uiModule = (function () {
 
         mainSection.addEventListener('click', function (event) {
             const target = event.target;
-            if (target.classList.contains('task-name')) {
-                const taskName = target.closest('.task-card').querySelector('.task-name');
-                createEditableElement(taskName, taskName.textContent, (editedValue) => {
-                    if (editedValue !== "") { 
-                        taskName.textContent = editedValue;
-                    }
-                    taskName.addEventListener('mouseover', () => {
-                        taskName.style.cursor = 'pointer'; 
-                    });
+            const taskCard = target.closest('.task-card');
+            if (taskCard) {
+                const taskId = taskCard.getAttribute('data-task-id');
+                const task = taskModule.taskList.find(task => task.id == taskId);
+                if (task) {
+                    if (target.classList.contains('task-name')) {
 
-                });
-            } else if (target.id === 'task-description') {
-                const taskDescription = target.closest('.task-card').querySelector('#task-description');
-                createEditableElement(taskDescription, taskDescription.textContent, (editedValue) => {
-                    if (editedValue !== "") { 
-                        taskDescription.textContent = editedValue;
+                        const taskName = target.closest('.task-card').querySelector('.task-name');
+                        createEditableElement(taskName, taskName.textContent, (editedValue) => {
+                            if (editedValue !== "") {
+                                taskName.textContent = editedValue;
+                                task.title = editedValue;
+                                console.log("task.title: " + task.title)
+                                console.log(taskModule.taskList)
+                            }
+                            taskName.addEventListener('mouseover', () => {
+                                taskName.style.cursor = 'pointer';
+                            });
+
+                        });
+                    } else if (target.id === 'task-description') {
+                        const taskDescription = target.closest('.task-card').querySelector('#task-description');
+                        createEditableElement(taskDescription, taskDescription.textContent, (editedValue) => {
+                            if (editedValue !== "") {
+                                taskDescription.textContent = editedValue;
+                                task.description = editedValue;
+                            }
+                        });
                     }
-                });
-            }
-            else if (target.id === 'task-due-date') {
-                const taskDueDate = target.closest('.task-card').querySelector('#task-due-date');
-                createEditableDateElement(taskDueDate, taskDueDate.textContent);
-                // task.dueDate = taskDueDate.textContent;
+                    else if (target.id === 'task-due-date') {
+                        const taskDueDate = target.closest('.task-card').querySelector('#task-due-date');
+                        createEditableDateElement(taskDueDate, taskDueDate.textContent, task);
+                    }
+                }
             }
         });
 
@@ -149,12 +168,14 @@ const uiModule = (function () {
                 highlightSelectedButton(clickedProject);
                 hidePages();
                 projectModule.showProjectContainer(projectName);
+                taskModule.renderAllSections();
             }
         });
         // Display the specific task section 
         allTasksButton.addEventListener('click', () => {
             hidePages();
             toggleTaskSection('allTasks')
+
         }
         );
         todayTasksButton.addEventListener('click', () => {
@@ -232,7 +253,7 @@ const uiModule = (function () {
         });
     }
 
-    return { initBtnListeners, createMainHeader, toggleTaskModal, hidePages};
+    return { initBtnListeners, createMainHeader, toggleTaskModal, hidePages };
 })()
 export default uiModule;
 
