@@ -110,7 +110,41 @@
 						class="task-container"
 						id="allTasksContainer"
 						style="display: none"
-					></div>
+					>
+						<div class="task-card">
+							<input
+								type="checkbox"
+								class="task-status-checkbox"
+								id="taskCheckbox"
+							/>
+							<div class="task-summary">
+								<h3 class="task-name">${task.title}</h3>
+								<p id="task-description">${task.description}</p>
+							</div>
+							<div class="task-actions">
+								<p id="task-due-date" class="editable-date">${formattedDueDate}</p>
+								<!-- <input type="date" id="task-due-date" class="editable-input"> -->
+								<ion-icon name="create-outline"></ion-icon>
+								<ion-icon name="trash-outline"></ion-icon>
+							</div>
+						</div>
+						<div class="task-card">
+							<input
+								type="checkbox"
+								class="task-status-checkbox"
+								id="taskCheckbox"
+							/>
+							<div class="task-summary">
+								<h3 class="task-name">${task.title}</h3>
+								<p id="task-description">${task.description}</p>
+							</div>
+							<div class="task-actions">
+								<p>${formattedDueDate}</p>
+								<ion-icon name="create-outline"></ion-icon>
+								<ion-icon name="trash-outline"></ion-icon>
+							</div>
+						</div>
+					</div>
 					<div
 						class="task-container"
 						id="importantTasksContainer"

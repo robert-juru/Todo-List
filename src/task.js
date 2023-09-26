@@ -4,15 +4,17 @@ import projectModule from './project.js';
 
 const taskModule = (function () {
     const taskForm = document.getElementById('task-form');
-    const taskList = [];
     const allTasksContainer = document.getElementById('allTasksContainer');
     const todayTasksContainer = document.getElementById('todayTasksContainer');
     const importantTasksContainer = document.getElementById('importantTasksContainer');
+    const mainSection = document.querySelector('main');
     const today = format(new Date(), "MMM d, yyyy");
-
+    const taskList = [];
+    let taskIdCounter = 0;
     //Create a task object 
     function createTask(title, description, dueDate, priority, project) {
         const task = {
+            id: taskIdCounter++,
             title: title,
             description: description,
             dueDate: dueDate,
@@ -47,13 +49,30 @@ const taskModule = (function () {
         <p id="task-description">${task.description}</p>
     </div>
     <div class="task-actions">
-        <p>${formattedDueDate}</p>
+        <p id="task-due-date" class="editable-date">${formattedDueDate}</p>
         <ion-icon name="create-outline"></ion-icon>
         <ion-icon name="trash-outline"></ion-icon>
     </div>
         `;
         stylizeTaskCardByPriority(card, task.priority);
         return card;
+    }
+
+    function editTaskCard() {
+        mainSection.addEventListener('change', function (event) {
+            const target = event.target;
+            if (target.classList.contains('task-status-checkbox')) {
+                const taskName = target.closest('.task-card').querySelector('.task-name');
+                const taskCard = target.closest('.task-card');
+                if (target.checked) {
+                    taskName.style.textDecoration = 'line-through';
+                    taskCard.style.color = '#696969';
+                } else {
+                    taskName.style.textDecoration = 'none';
+                    taskCard.style.color = 'black';
+                }
+            }
+        });
     }
 
     function extractTaskFromForm() {
@@ -127,9 +146,15 @@ const taskModule = (function () {
             displayImportantTasks(); // Update important tasks in the UI
         }
     }
+
+    
+
+
+
     function addTaskToList(task) {
         // Add the task to the list
         taskList.push(task);
+        console.log(taskList)
     }
 
     return { createTask, createTaskCard, handleFormSubmit, displayTasksForToday, displayImportantTasks }

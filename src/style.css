@@ -321,7 +321,7 @@ textarea {
 	flex-direction: column;
 	/* align-items: center; */
 	justify-content: center;
-	flex: 4;
+	flex: 1;
 	padding-left: 20px;
 }
 
@@ -350,6 +350,10 @@ textarea {
 	flex: 1;
 	align-items: center;
 	gap: 25px;
+}
+
+.edit-task-input {
+	width:100px;
 }
 
 /* Checkbox */

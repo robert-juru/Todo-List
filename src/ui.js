@@ -1,4 +1,6 @@
-import projectModule from "./project";
+import projectModule from "./project.js";
+import taskModule from "./task.js";
+import { format } from 'date-fns';
 
 const uiModule = (function () {
     //Get references to buttons and containers
@@ -15,7 +17,7 @@ const uiModule = (function () {
     const createTaskBtn = document.getElementById('create-task-button');
     const taskModal = document.getElementById('task-modal');
     const closeModalBtn = document.getElementById('close-modal');
-    const mainContainer = document.querySelector('main');
+    const mainSection = document.querySelector('main');
 
     let lastSelectedButton = null;
 
@@ -31,21 +33,114 @@ const uiModule = (function () {
             });
         });
 
+        function createEditableDateElement(target, initialText) {
+            const inputElement = document.createElement('input');
+            inputElement.type = 'date';
+            inputElement.value = format(new Date(initialText), "yyyy-MM-dd");
+            inputElement.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === 'Escape') {
+                    target.textContent = format(new Date(inputElement.value), "MMM d, yyyy")
+                    inputElement.remove();
+                }
+            });
+            target.innerHTML = '';
+            target.appendChild(inputElement);
+            inputElement.focus();
+        }
+
+        function createEditableElement(container, initialValue, callback) {
+            if (container.querySelector('.edit-task-input')) {
+                return;
+            }
+
+            const textContentSpan = document.createElement('span');
+            textContentSpan.textContent = initialValue;
+            textContentSpan.classList.add('editable-text');
+            container.innerHTML = ''; // Clear the container
+            container.appendChild(textContentSpan);
+
+            textContentSpan.addEventListener('mouseover', () => {
+                textContentSpan.style.cursor = 'pointer';
+            });
+
+            textContentSpan.addEventListener('mouseout', () => {
+                textContentSpan.style.cursor = 'auto';
+            });
+
+            textContentSpan.addEventListener('click', (e) => {
+                e.stopPropagation(); // Prevent the click event from bubbling up to the container
+                let inputElement = document.createElement('input');
+                inputElement.classList.add('edit-task-input');
+                inputElement.value = textContentSpan.textContent;
+
+
+                inputElement.addEventListener('blur', () => {
+                    const editedValue = inputElement.value;
+
+                    // Update the displayed content with the new value
+                    if (editedValue !== "") { // Check if the edited text is not empty
+                        textContentSpan.textContent = editedValue;
+                    }
+                    container.innerHTML = ''; 
+                    container.appendChild(textContentSpan);
+                    inputElement.remove();
+
+                    if (typeof callback === 'function') {
+                        callback(editedValue);
+                    }
+                });
+                container.innerHTML = ''; 
+                container.appendChild(inputElement);
+                inputElement.focus();
+            });
+        }
+
+        mainSection.addEventListener('click', function (event) {
+            const target = event.target;
+            if (target.classList.contains('task-name')) {
+                const taskName = target.closest('.task-card').querySelector('.task-name');
+                createEditableElement(taskName, taskName.textContent, (editedValue) => {
+                    if (editedValue !== "") { 
+                        taskName.textContent = editedValue;
+                    }
+                    taskName.addEventListener('mouseover', () => {
+                        taskName.style.cursor = 'pointer'; 
+                    });
+
+                });
+            } else if (target.id === 'task-description') {
+                const taskDescription = target.closest('.task-card').querySelector('#task-description');
+                createEditableElement(taskDescription, taskDescription.textContent, (editedValue) => {
+                    if (editedValue !== "") { 
+                        taskDescription.textContent = editedValue;
+                    }
+                });
+            }
+            else if (target.id === 'task-due-date') {
+                const taskDueDate = target.closest('.task-card').querySelector('#task-due-date');
+                createEditableDateElement(taskDueDate, taskDueDate.textContent);
+                // task.dueDate = taskDueDate.textContent;
+            }
+        });
+
         // When a checkbox is changed, toggle the text decoration & color for the taskCard.
-        mainContainer.addEventListener('change', function (event) {
+        mainSection.addEventListener('change', function (event) {
             const target = event.target;
             if (target.classList.contains('task-status-checkbox')) {
                 const taskName = target.closest('.task-card').querySelector('.task-name');
+                const taskSummary = target.closest('.task-card').querySelector('.task-summary');
+                const taskDescription = target.closest('.task-card').querySelector('#task-description');
                 const taskCard = target.closest('.task-card');
                 if (target.checked) {
                     taskName.style.textDecoration = 'line-through';
-                    taskCard.style.color='#696969';
+                    taskCard.style.color = '#696969';
                 } else {
                     taskName.style.textDecoration = 'none';
-                    taskCard.style.color='black';
+                    taskCard.style.color = 'black';
                 }
             }
         });
+
         // Initialize highlighting for dynamically added projects & display project page
         projectsContainer.addEventListener('click', (event) => {
             const clickedProject = event.target.closest('.nav-btn.project');
@@ -137,7 +232,7 @@ const uiModule = (function () {
         });
     }
 
-    return { initBtnListeners, createMainHeader, toggleTaskModal, hidePages };
+    return { initBtnListeners, createMainHeader, toggleTaskModal, hidePages};
 })()
 export default uiModule;
 
