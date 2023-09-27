@@ -117,8 +117,6 @@ const uiModule = (function () {
                             if (editedValue !== "") {
                                 taskName.textContent = editedValue;
                                 task.title = editedValue;
-                                console.log("task.title: " + task.title)
-                                console.log(taskModule.taskList)
                             }
                             taskName.addEventListener('mouseover', () => {
                                 taskName.style.cursor = 'pointer';
@@ -202,6 +200,11 @@ const uiModule = (function () {
                 toggleTaskModal();
             }
         });
+        document.addEventListener('click', function(event) {
+            if (event.target && event.target.id === 'delete-project-btn') {
+              projectModule.deleteProject(event);
+            }
+          });
         // Initialize the task pages with their respective header
         document.addEventListener('DOMContentLoaded', initializePage);
     }
@@ -253,7 +256,7 @@ const uiModule = (function () {
         });
     }
 
-    return { initBtnListeners, createMainHeader, toggleTaskModal, hidePages };
+    return { initBtnListeners, createMainHeader, toggleTaskModal, toggleTaskSection, hidePages };
 })()
 export default uiModule;
 

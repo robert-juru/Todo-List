@@ -18,17 +18,58 @@ const projectModule = (function () {
         let projectIcon = document.createElement('ion-icon')
         projectIcon.setAttribute('name', 'menu-outline')
         projectIcon.setAttribute('size', 'small')
+        projectIcon.setAttribute('id', 'menu-project-icon');
         return projectIcon;
     }
+
+    function createDeleteProjectIcon() {
+        let deleteProjectIcon = document.createElement('ion-icon')
+        deleteProjectIcon.setAttribute('name', 'trash-outline')
+        deleteProjectIcon.setAttribute('size', 'small')
+        deleteProjectIcon.setAttribute('id', 'delete-project-btn');
+
+        return deleteProjectIcon;
+    }
+
+
     // Create a project element and return it
     function createProjectElement(projectName) {
+        const projectElement = document.createElement('div');
+
         const project = document.createElement('div');
-        project.appendChild(createProjectIcon());
-        project.innerHTML += projectName;
-        project.classList.add('nav-btn', 'project');
-        project.setAttribute('id', `${projectName}`);
-        projectList.push(project)
-        return project;
+        project.setAttribute('id', 'project-name')
+        project.textContent = projectName;
+
+        projectElement.appendChild(createProjectIcon());
+        projectElement.appendChild(project)
+        projectElement.appendChild(createDeleteProjectIcon());
+
+        projectElement.classList.add('nav-btn', 'project');
+        projectElement.setAttribute('id', `${projectName}`);
+        projectList.push(projectElement)
+        return projectElement;
+    }
+
+    function deleteProject(event) {
+        const deleteIcon = event.target;
+        const projectElementToDelete = deleteIcon.closest('.project');
+        if (projectElementToDelete) {
+            const projectName = projectElementToDelete.getAttribute('id');
+            // Remove the project element from the DOM
+            projectElementToDelete.remove();
+            // Remove the project from the projectList & the project name from the createdProjectNames
+            const projectIndex = projectList.findIndex(project => project.getAttribute('id') === projectName);
+            if (projectIndex !== -1) {
+                projectList.splice(projectIndex, 1);
+                createdProjectNames.splice(projectIndex, 1);
+            }
+            console.log(projectList)
+            // Remove the project page container
+            const projectPageContainer = document.getElementById(`${projectName}-page-container`)
+            mainSection.removeChild(projectPageContainer)
+            // Toggle page container to All Tasks
+            uiModule.toggleTaskSection('allTasks')
+        }
     }
 
     function createProjectPageContainer(projectName) {
@@ -133,6 +174,6 @@ const projectModule = (function () {
         }
     }
 
-    return { addNewProject, showNewProjectContainer, hideNewProjectContainer, populateProjectSelector, showProjectContainer, addTaskToProjectContainer }
+    return { addNewProject, showNewProjectContainer, hideNewProjectContainer, populateProjectSelector, showProjectContainer, addTaskToProjectContainer, deleteProject }
 })()
 export default projectModule;

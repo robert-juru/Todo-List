@@ -185,6 +185,14 @@ ion-icon {
 	margin-left: -15px;
 }
 
+#project-name {
+	flex:2;
+}
+
+#delete-project-icon {
+	flex:1;
+}
+
 /*Modal styling*/
 .modal {
 	position: fixed;

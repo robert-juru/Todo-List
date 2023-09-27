@@ -33,7 +33,6 @@ const taskModule = (function () {
         // Clear the content of the all tasks container
         clearTasksInSection(allTasksContainer);
         // Loop through the taskList and create task cards for each task
-        console.log(taskList);
         taskList.forEach(task => {
             updateTaskUI(task);
         });
