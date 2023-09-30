@@ -12,6 +12,7 @@ const uiModule = (function () {
     const todayTasksButton = document.getElementById('todayTasksButton');
     const projectsContainer = document.querySelector('.projects-container');
     const menuButton = document.getElementById('menu-svg-button');
+    const homeButton = document.getElementById('home-svg-button');
     const asideNav = document.querySelector('aside');
     const navButtons = document.querySelectorAll('.nav-btn');
     const createTaskBtn = document.getElementById('create-task-button');
@@ -22,6 +23,10 @@ const uiModule = (function () {
     let lastSelectedButton = null;
 
     function initBtnListeners() {
+        homeButton.addEventListener('click', () => {
+            toggleTaskSection('allTasks')
+            highlightSelectedButton(allTasksButton)
+        })
         // Event listener for menu button
         menuButton.addEventListener('click', () => {
             asideNav.classList.toggle('show-aside');
@@ -32,14 +37,13 @@ const uiModule = (function () {
                 highlightSelectedButton(button);
                 taskModule.renderAllSections();
             });
-
         });
 
         function createEditableDateElement(target, initialText, task) {
             const inputElement = document.createElement('input');
             inputElement.type = 'date';
             inputElement.value = format(new Date(initialText), "yyyy-MM-dd");
-            
+
             inputElement.addEventListener('keydown', (e) => {
                 if (e.key === 'Enter' || e.key === 'Escape') {
                     const editedDate = new Date(inputElement.value);
@@ -49,12 +53,10 @@ const uiModule = (function () {
                     taskModule.displayTasksForToday();
                 }
             });
-        
             target.innerHTML = '';
             target.appendChild(inputElement);
             inputElement.focus();
         }
-        
 
         function createEditableElement(container, initialValue, callback) {
             if (container.querySelector('.edit-task-input')) {
@@ -80,19 +82,15 @@ const uiModule = (function () {
                 let inputElement = document.createElement('input');
                 inputElement.classList.add('edit-task-input');
                 inputElement.value = textContentSpan.textContent;
-
-
                 inputElement.addEventListener('blur', () => {
                     const editedValue = inputElement.value;
-
                     // Update the displayed content with the new value
-                    if (editedValue !== "") { 
+                    if (editedValue !== "") {
                         textContentSpan.textContent = editedValue;
                     }
                     container.innerHTML = '';
                     container.appendChild(textContentSpan);
                     inputElement.remove();
-
                     if (typeof callback === 'function') {
                         callback(editedValue);
                     }
@@ -111,7 +109,6 @@ const uiModule = (function () {
                 const task = taskModule.taskList.find(task => task.id == taskId);
                 if (task) {
                     if (target.classList.contains('task-name')) {
-
                         const taskName = target.closest('.task-card').querySelector('.task-name');
                         createEditableElement(taskName, taskName.textContent, (editedValue) => {
                             if (editedValue !== "") {
@@ -121,7 +118,6 @@ const uiModule = (function () {
                             taskName.addEventListener('mouseover', () => {
                                 taskName.style.cursor = 'pointer';
                             });
-
                         });
                     } else if (target.id === 'task-description') {
                         const taskDescription = target.closest('.task-card').querySelector('#task-description');
@@ -145,8 +141,6 @@ const uiModule = (function () {
             const target = event.target;
             if (target.classList.contains('task-status-checkbox')) {
                 const taskName = target.closest('.task-card').querySelector('.task-name');
-                const taskSummary = target.closest('.task-card').querySelector('.task-summary');
-                const taskDescription = target.closest('.task-card').querySelector('#task-description');
                 const taskCard = target.closest('.task-card');
                 if (target.checked) {
                     taskName.style.textDecoration = 'line-through';
@@ -200,11 +194,11 @@ const uiModule = (function () {
                 toggleTaskModal();
             }
         });
-        document.addEventListener('click', function(event) {
+        document.addEventListener('click', function (event) {
             if (event.target && event.target.id === 'delete-project-btn') {
-              projectModule.deleteProject(event);
+                projectModule.deleteProject(event);
             }
-          });
+        });
         // Initialize the task pages with their respective header
         document.addEventListener('DOMContentLoaded', initializePage);
     }
@@ -221,6 +215,7 @@ const uiModule = (function () {
         createMainHeader(allTasksButton.textContent, allTasksContainer);
         createMainHeader(todayTasksButton.textContent, todayTasksContainer);
         createMainHeader(importantTasksButton.textContent, importantTasksContainer);
+        highlightSelectedButton(allTasksButton)
     }
 
     function highlightSelectedButton(button) {
