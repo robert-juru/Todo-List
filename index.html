@@ -1,173 +1,183 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Chorelio</title>
-		<style>
-			@import url("https://fonts.googleapis.com/css2?family=Lobster&family=Montserrat:wght@500&display=swap");
-		</style>
-		<link rel="stylesheet" href="style.css" />
-	</head>
-	<body>
-		<div id="content">
-			<header>
-				<div class="left-header">
-					<button id="menu-svg-button" class="header-button">
-						<img src="/src/img/menu-icon.svg" alt="Menu Icon" />
-					</button>
-					<button id="home-svg-button" class="header-button">
-						<img src="/src/img/home-icon.svg" alt="Home Icon" />
-					</button>
-				</div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chorelio</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Lobster&family=Montserrat:wght@500&display=swap");
+    </style>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="content">
+      <header>
+        <div class="left-header">
+          <button id="menu-svg-button" class="header-button">
+            <img src="/src/img/menu-icon.svg" alt="Menu Icon" />
+          </button>
+          <button id="home-svg-button" class="header-button">
+            <img src="/src/img/home-icon.svg" alt="Home Icon" />
+          </button>
+        </div>
 
-				<div class="header-brand">
-					<img class="header-logo" src="../src/img/header-icon.png" alt="" />
-					<h1 class="header-title">Chorelio</h1>
-				</div>
-				<div class="right-header">
-					<button id="create-task-button" class="header-button">
-						<img src="/src/img/plus-icon.svg" alt="Create Task Icon" />
-					</button>
-					<img src="/src/img/profile-picture.png" class="header__logo" alt="" />
-				</div>
-			</header>
+        <div class="header-brand">
+          <img class="header-logo" src="../src/img/header-icon.png" alt="" />
+          <h1 class="header-title">Chorelio</h1>
+        </div>
+        <div class="right-header">
+          <button id="create-task-button" class="header-button">
+            <img src="/src/img/plus-icon.svg" alt="Create Task Icon" />
+          </button>
+          <img src="/src/img/profile-picture.png" class="header__logo" alt="" />
+        </div>
+      </header>
 
-			<section class="main-content">
-				<aside class="hidden">
-					<nav>
-						<div class="tasks-container">
-							<h2 class="tasks-header">TASKS</h2>
-							<div class="task-buttons-container">
-								<div class="all-tasks-btn-container">
-									<button class="nav-btn task-button" id="allTasksButton">
-										<ion-icon
-											name="file-tray-outline"
-											class="tasks-icon"
-										></ion-icon>
-										All Tasks
-									</button>
-								</div>
-								<div class="today-tasks-btn-container">
-									<button class="nav-btn task-button" id="todayTasksButton">
-										<ion-icon
-											name="calendar-outline"
-											class="today-icon"
-										></ion-icon>
-										Today
-									</button>
-								</div>
-								<div class="important-tasks-btn-container">
-									<button class="nav-btn task-button" id="importantTasksButton">
-										<ion-icon name="star" class="important-icon"></ion-icon>
-										Important
-									</button>
-								</div>
-							</div>
-						</div>
-						<div class="projects-section-container">
-							<h2 class="projects-header">PROJECTS</h2>
-							<div class="projects-container">
-								<!-- <div class="nav-btn project">
+      <section class="main-content">
+        <aside class="hidden">
+          <nav>
+            <div class="tasks-container">
+              <h2 class="tasks-header">TASKS</h2>
+              <div class="task-buttons-container">
+                <div class="all-tasks-btn-container">
+                  <button class="nav-btn task-button" id="allTasksButton">
+                    <ion-icon
+                      name="file-tray-outline"
+                      class="tasks-icon"
+                    ></ion-icon>
+                    All Tasks
+                  </button>
+                </div>
+                <div class="today-tasks-btn-container">
+                  <button class="nav-btn task-button" id="todayTasksButton">
+                    <ion-icon
+                      name="calendar-outline"
+                      class="today-icon"
+                    ></ion-icon>
+                    Today
+                  </button>
+                </div>
+                <div class="important-tasks-btn-container">
+                  <button class="nav-btn task-button" id="importantTasksButton">
+                    <ion-icon name="star" class="important-icon"></ion-icon>
+                    Important
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="projects-section-container">
+              <h2 class="projects-header">PROJECTS</h2>
+              <div class="projects-container">
+                <!-- <div class="nav-btn project">
 									<ion-icon name="menu-outline" size="small"></ion-icon>
 									Home Chores
 								</div> -->
-							</div>
-							<button id="create-project-btn">
-								<ion-icon name="create-outline"></ion-icon>
-								Add Project
-							</button>
-							<div class="new-project-container" style="display: none">
-								<input
-									type="text"
-									id="new-project"
-									name="new-project"
-									placeholder="Enter Project Name"
-									minlength="1"
-									maxlength="15"
-								/>
-								<div class="new-project-btn-container">
-									<button type="submit" class="add-new-project-btn">Add</button>
-									<button class="cancel-new-project-btn">Cancel</button>
-								</div>
-							</div>
-						</div>
-						<div class="action-buttons-container">
-							<a href="#" class="action-button" id="settings">
-								<ion-icon name="settings-outline" size="small"></ion-icon>
-								Settings</a
-							>
-							<a href="#" class="action-button" id="log-in">
-								<ion-icon name="log-in-outline" size="small"></ion-icon>
-								Sign in</a
-							>
-						</div>
-					</nav>
-				</aside>
+              </div>
+              <button id="create-project-btn">
+                <ion-icon name="create-outline"></ion-icon>
+                Add Project
+              </button>
+              <div class="new-project-container" style="display: none">
+                <input
+                  type="text"
+                  id="new-project"
+                  name="new-project"
+                  placeholder="Enter Project Name"
+                  minlength="1"
+                  maxlength="15"
+                />
+                <div class="new-project-btn-container">
+                  <button type="submit" class="add-new-project-btn">Add</button>
+                  <button class="cancel-new-project-btn">Cancel</button>
+                </div>
+              </div>
+            </div>
+            <div class="action-buttons-container">
+              <a href="#" class="action-button" id="settings">
+                <ion-icon name="settings-outline" size="small"></ion-icon>
+                Settings</a
+              >
+              <a href="#" class="action-button" id="log-in">
+                <ion-icon name="log-in-outline" size="small"></ion-icon>
+                Sign in</a
+              >
+            </div>
+          </nav>
+        </aside>
 
-				<main>
-					<div
-						class="task-container"
-						id="allTasksContainer"
-					></div>
-					<div
-						class="task-container"
-						id="importantTasksContainer"
-						style="display: none"
-					></div>
-					<div
-						class="task-container"
-						id="todayTasksContainer"
-						style="display: none"
-					></div>
-				</main>
-			</section>
-		</div>
+        <main>
+          <div class="task-container" id="allTasksContainer"></div>
+          <div
+            class="task-container"
+            id="importantTasksContainer"
+            style="display: none"
+          ></div>
+          <div
+            class="task-container"
+            id="todayTasksContainer"
+            style="display: none"
+          ></div>
+        </main>
+      </section>
+    </div>
 
-		<!-- Task modal -->
-		<div id="task-modal" class="modal">
-			<div class="modal-content">
-				<span class="close" id="close-modal">&times;</span>
-				<div class="new-task-header">
-					<h2>New Task</h2>
-				</div>
-				<form id="task-form">
-					<label for="title">Title:</label>
-					<input type="text" id="title" name="title" required />
+    <!-- Task modal -->
+    <div id="task-modal" class="modal">
+      <div class="modal-content">
+        <span class="close" id="close-modal">&times;</span>
+        <div class="new-task-header">
+          <h2>New Task</h2>
+        </div>
+        <form id="task-form">
+          <label for="title"
+            >Title
+            <span class="mandatory-star">*</span>
+          </label>
+          <input type="text" id="title" name="title" placeholder="Give your task a name" required />
 
-					<label for="description">Description:</label>
-					<textarea id="description" name="description"></textarea>
+          <label for="description"
+            >Description
+          </label>
+          <textarea id="description" name="description"  placeholder="Additional task details..."></textarea>
 
-					<label for="due-date">Due Date:</label>
-					<input type="date" id="due-date" name="due-date" required />
+          <label for="due-date"
+            >Due Date
+            <span class="mandatory-star">*</span>
+          </label>
+          <input type="date" id="due-date" name="due-date" required />
 
-					<label for="priority">Priority:</label>
-					<select id="priority" name="priority">
-						<option value="important">Important</option>
-						<option value="not-important">Not Important</option>
-					</select>
+          <label for="priority"
+            >Priority
+            <span class="mandatory-star">*</span>
+          </label>
+          <select id="priority" name="priority">
+            <option value="important">Important</option>
+            <option value="not-important">Not Important</option>
+          </select>
 
-					<label for="project">Project:</label>
-					<select id="project-selector" name="project-selector">
-						<option value="all-tasks">All Tasks</option>
-					</select>
-					<div class="submit-btn-container">
-						<button type="submit" class="create-task-submit-btn">
-							Create Task
-						</button>
-					</div>
-				</form>
-			</div>
-		</div>
+          <label for="project">Project
+			<span class="mandatory-star">*</span>
+		  </label>
+          <select id="project-selector" name="project-selector">
+            <option value="all-tasks">All Tasks</option>
+          </select>
+          <div class="submit-btn-container">
+            <button type="submit" class="create-task-submit-btn">
+              Create Task
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
 
-		<script
-			type="module"
-			src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
-		></script>
-		<script
-			nomodule
-			src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
-		></script>
-		<script src="main.js"></script>
-	</body>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+    <script src="main.js"></script>
+  </body>
 </html>
