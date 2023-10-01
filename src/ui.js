@@ -24,8 +24,9 @@ const uiModule = (function () {
 
     function initBtnListeners() {
         homeButton.addEventListener('click', () => {
-            toggleTaskSection('allTasks')
-            highlightSelectedButton(allTasksButton)
+            hidePages();
+            toggleTaskSection('allTasks');
+            highlightSelectedButton(allTasksButton);
         })
         // Event listener for menu button
         menuButton.addEventListener('click', () => {
@@ -78,8 +79,8 @@ const uiModule = (function () {
             });
 
             textContentSpan.addEventListener('click', (e) => {
-                // e.stopPropagation(); // Prevent the click event from bubbling up to the container
                 let inputElement = document.createElement('input');
+                inputElement.maxLength = '50';
                 inputElement.classList.add('edit-task-input');
                 inputElement.value = textContentSpan.textContent;
                 inputElement.addEventListener('blur', () => {
@@ -194,6 +195,10 @@ const uiModule = (function () {
                 toggleTaskModal();
             }
         });
+        document.addEventListener("click", function (event) {
+            if (event.target && event.target.id == "delete-task-btn")
+                taskModule.deleteTask(event)
+        })
         document.addEventListener('click', function (event) {
             if (event.target && event.target.id === 'delete-project-btn') {
                 projectModule.deleteProject(event);

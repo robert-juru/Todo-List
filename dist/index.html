@@ -68,10 +68,6 @@
             <div class="projects-section-container">
               <h2 class="projects-header">PROJECTS</h2>
               <div class="projects-container">
-                <!-- <div class="nav-btn project">
-									<ion-icon name="menu-outline" size="small"></ion-icon>
-									Home Chores
-								</div> -->
               </div>
               <button id="create-project-btn">
                 <ion-icon name="create-outline"></ion-icon>
@@ -133,12 +129,12 @@
             >Title
             <span class="mandatory-star">*</span>
           </label>
-          <input type="text" id="title" name="title" placeholder="Give your task a name" required />
+          <input type="text" id="title" name="title" placeholder="Give your task a name" maxlength="20" required />
 
           <label for="description"
             >Description
           </label>
-          <textarea id="description" name="description"  placeholder="Additional task details..."></textarea>
+          <textarea id="description" name="description"  placeholder="Additional task details..." maxlength="50"></textarea>
 
           <label for="due-date"
             >Due Date

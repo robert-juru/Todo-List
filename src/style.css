@@ -365,6 +365,15 @@ textarea {
   width: 100px;
 }
 
+#task-priority-toggle {
+  margin-left:-10px;
+  margin-right:5px;
+	width:8px;
+  height:60px;
+	background-color:#298e46;
+  border-radius:5px;
+}
+
 /* Checkbox */
 .task-status-checkbox {
   width: 20px;
