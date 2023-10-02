@@ -27,6 +27,3 @@ addNewProjectBtn.addEventListener('click', () => {
 taskForm.addEventListener('submit', taskModule.handleFormSubmit);
 
 uiModule.initBtnListeners();
-
-
-  

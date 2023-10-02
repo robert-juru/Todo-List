@@ -206,7 +206,8 @@ const projectModule = (function () {
         populateProjectSelector,
         showProjectContainer,
         addTaskToProjectContainer,
-        deleteProject
+        deleteProject,
+        projectList
     };
 })();
 export default projectModule;
